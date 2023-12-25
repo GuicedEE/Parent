@@ -210,6 +210,10 @@
                                         <pattern>javax.servlet</pattern>
                                         <shadedPattern>jakarta.servlet</shadedPattern>
                                     </relocation>
+                                    <relocations>
+                                        <pattern>org.apache.commons.collections.</pattern>
+                                        <shadedPattern>org.apache.commons.collections4.</shadedPattern>
+                                    </relocations>
                                 </relocations>
                             </configuration>
                         </execution>
