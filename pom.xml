@@ -82,6 +82,7 @@
                     </executions>
                     <configuration>
                         <failOnError>false</failOnError>
+                        <skip>${maven.javadoc.skip}</skip>
                     </configuration>
                 </plugin>
 
