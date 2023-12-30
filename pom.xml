@@ -47,29 +47,6 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/main/java</source>
-                                <source>src/jre11/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-        </plugins>
-
         <pluginManagement>
             <plugins>
 
@@ -267,6 +244,14 @@
                                     <relocation>
                                         <pattern>javax.mail</pattern>
                                         <shadedPattern>jakarta.mail</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>javax.json</pattern>
+                                        <shadedPattern>jakarta.json</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>jakarta.annotation.processing.</pattern>
+                                        <shadedPattern>javax.annotation.processing.</shadedPattern>
                                     </relocation>
                                     <relocations>
                                         <pattern>org.apache.commons.collections.</pattern>
@@ -466,4 +451,65 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>jdk11</id>
+            <activation>
+                <jdk>[11,20]</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/main/java</source>
+                                        <source>src/jre11/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jdk21</id>
+            <activation>
+                <jdk>21</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/main/java</source>
+                                        <source>src/jre21/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
