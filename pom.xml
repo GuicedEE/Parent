@@ -150,6 +150,7 @@
                                         <artifact>*:*</artifact>
                                         <excludes>
                                             <exclude>module-info.java</exclude>
+                                            <exclude>**/module-info.java</exclude>
                                             <exclude>META-INF/*.SF</exclude>
                                             <exclude>META-INF/*.DSA</exclude>
                                             <exclude>META-INF/*.RSA</exclude>
@@ -310,6 +311,7 @@
                             </goals>
                             <configuration>
                                 <overwriteExistingFiles>true</overwriteExistingFiles>
+                                <jvmVersion>17</jvmVersion>
                                 <module>
                                     <moduleInfoFile>${module.file.location}</moduleInfoFile>
                                 </module>
@@ -323,7 +325,7 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>flatten-maven-plugin</artifactId>
                     <configuration>
-                        <flattenMode>oss</flattenMode>
+                        <flattenMode>ossrh</flattenMode>
                         <flattenDependencyMode>direct</flattenDependencyMode>
                         <detail>true</detail>
                         <updatePomFile>true</updatePomFile>
