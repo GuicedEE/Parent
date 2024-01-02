@@ -144,7 +144,7 @@
                             <filter>
                                 <artifact>*:*</artifact>
                                 <excludes>
-                                    <exclude>module-info.java</exclude>
+                                    <exclude>module-info*</exclude>
                                     <exclude>META-INF/versions/9/module-info*</exclude>
                                     <exclude>META-INF/versions/11/module-info*</exclude>
                                     <exclude>META-INF/*.SF</exclude>
