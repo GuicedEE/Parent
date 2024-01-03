@@ -139,7 +139,7 @@
                         <createSourcesJar>true</createSourcesJar>
                         <shadeSourcesContent>true</shadeSourcesContent>
                         <shadeTestJar>false</shadeTestJar>
-
+                        <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
                         <filters>
                             <filter>
                                 <artifact>*:*</artifact>
