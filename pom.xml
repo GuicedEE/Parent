@@ -224,12 +224,6 @@
                                 <pattern>javax.jws</pattern>
                                 <shadedPattern>jakarta.jws</shadedPattern>
                             </relocation>
-
-                            <relocation>
-                                <pattern>javax.cache</pattern>
-                                <shadedPattern>jakarta.cache</shadedPattern>
-                            </relocation>
-
                             <relocation>
                                 <pattern>javax.xml.ws</pattern>
                                 <shadedPattern>jakarta.xml.ws</shadedPattern>
