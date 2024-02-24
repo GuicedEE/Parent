@@ -27,6 +27,14 @@
         <!--<maven.javadoc.skip>true</maven.javadoc.skip>-->
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -56,6 +64,13 @@
                     <version>${maven.compiler.version}</version>
                     <configuration>
                         <release>${jdk.release}</release>
+                        <annotationProcessorPaths>
+                            <annotationProcessorPath>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </annotationProcessorPath>
+                        </annotationProcessorPaths>
                         <failOnError>true</failOnError>
                     </configuration>
                 </plugin>
@@ -306,7 +321,7 @@
                             </goals>
                             <configuration>
                                 <overwriteExistingFiles>true</overwriteExistingFiles>
-                                <jvmVersion>17</jvmVersion>
+                                <jvmVersion>9</jvmVersion>
                                 <module>
                                     <moduleInfoFile>${module.file.location}</moduleInfoFile>
                                 </module>
@@ -364,9 +379,6 @@
                         </execution>
                     </executions>
                 </plugin>
-
-
-
             </plugins>
         </pluginManagement>
 
