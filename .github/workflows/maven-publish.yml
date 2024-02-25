@@ -1,14 +1,18 @@
 name: Maven Package (BOM)
 on:
   workflow_dispatch:
-  push:
+    inputs:
+      centralRelease:
+        type: boolean
+        description: Run a release to maven central
+        default: false
 jobs:
   ParentBOM:
     uses: GuicedEE/Workflows/.github/workflows/bom.yml@master
     with:
       baseDir: ''
       name: 'GuicedEE Parent POM'
-      publishToCentral: true
+      publishToCentral: ${{inputs.centralRelease}}
     secrets:
       USERNAME: ${{secrets.USERNAME}}
       USER_TOKEN: ${{secrets.USER_TOKEN}}
