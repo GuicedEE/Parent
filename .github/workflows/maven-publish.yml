@@ -6,6 +6,7 @@ on:
         type: boolean
         description: Run a release to maven central
         default: false
+  push:
 jobs:
   ParentBOM:
     uses: GuicedEE/Workflows/.github/workflows/bom.yml@master
