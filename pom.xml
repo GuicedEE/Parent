@@ -139,6 +139,16 @@
                                         <artifactId>findbugs-annotations</artifactId>
                                         <version>${findbugs.annotation.version}</version>
                                     </dependency>
+                                    <dependency>
+                                        <groupId>com.google.errorprone</groupId>
+                                        <artifactId>error_prone_annotations</artifactId>
+                                        <version>2.25.0</version>
+                                    </dependency>
+                                    <dependency>
+                                        <groupId>net.jcip</groupId>
+                                        <artifactId>jcip-annotations</artifactId>
+                                        <version>1.0</version>
+                                    </dependency>
                                 </additionalDependencies>
                             </configuration>
                         </execution>
@@ -259,6 +269,10 @@
                             <relocation>
                                 <pattern>jakarta.annotation.processing.</pattern>
                                 <shadedPattern>javax.annotation.processing.</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>jakarta.annotation.concurrent.</pattern>
+                                <shadedPattern>javax.annotation.concurrent.</shadedPattern>
                             </relocation>
                             <relocations>
                                 <pattern>org.apache.commons.collections.</pattern>
