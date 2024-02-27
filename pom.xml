@@ -27,6 +27,19 @@
         <!--<maven.javadoc.skip>true</maven.javadoc.skip>-->
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -47,29 +60,6 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/main/java</source>
-                                <source>src/jre11/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-        </plugins>
-
         <pluginManagement>
             <plugins>
 
@@ -79,6 +69,13 @@
                     <version>${maven.compiler.version}</version>
                     <configuration>
                         <release>${jdk.release}</release>
+                        <annotationProcessorPaths>
+                            <annotationProcessorPath>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </annotationProcessorPath>
+                        </annotationProcessorPaths>
                         <failOnError>true</failOnError>
                     </configuration>
                 </plugin>
@@ -105,6 +102,7 @@
                     </executions>
                     <configuration>
                         <failOnError>false</failOnError>
+                        <skip>${maven.javadoc.skip}</skip>
                     </configuration>
                 </plugin>
 
@@ -146,6 +144,46 @@
                                         <artifactId>findbugs-annotations</artifactId>
                                         <version>${findbugs.annotation.version}</version>
                                     </dependency>
+                                    <dependency>
+                                        <groupId>com.google.errorprone</groupId>
+                                        <artifactId>error_prone_annotations</artifactId>
+                                        <version>2.25.0</version>
+                                    </dependency>
+                                    <dependency>
+                                        <groupId>net.jcip</groupId>
+                                        <artifactId>jcip-annotations</artifactId>
+                                        <version>1.0</version>
+                                    </dependency>
+                                    <dependency>
+                                        <groupId>jakarta.inject</groupId>
+                                        <artifactId>jakarta.inject-api</artifactId>
+                                        <version>${jakarta.inject.api.version}</version>
+                                    </dependency>
+                                    <dependency>
+                                        <groupId>jakarta.enterprise</groupId>
+                                        <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                                        <version>${jakarta.cdi.api.version}</version>
+                                    </dependency>
+                                    <dependency>
+                                        <groupId>org.osgi</groupId>
+                                        <artifactId>org.osgi.annotation.versioning</artifactId>
+                                        <version>1.1.2</version>
+                                    </dependency>
+                                    <dependency>
+                                        <groupId>org.osgi</groupId>
+                                        <artifactId>osgi.annotation</artifactId>
+                                        <version>8.1.0</version>
+                                    </dependency>
+                                    <dependency>
+                                        <groupId>biz.aQute.bnd</groupId>
+                                        <artifactId>biz.aQute.bnd.annotation</artifactId>
+                                        <version>7.0.0</version>
+                                    </dependency>
+                                    <dependency>
+                                        <groupId>org.osgi</groupId>
+                                        <artifactId>org.osgi.service.cdi</artifactId>
+                                        <version>1.0.1</version>
+                                    </dependency>
                                 </additionalDependencies>
                             </configuration>
                         </execution>
@@ -161,35 +199,127 @@
                         <createSourcesJar>true</createSourcesJar>
                         <shadeSourcesContent>true</shadeSourcesContent>
                         <shadeTestJar>false</shadeTestJar>
+                        <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                        <filters>
+                            <filter>
+                                <artifact>*:*</artifact>
+                                <excludes>
+                                    <exclude>module-info*</exclude>
+                                    <exclude>META-INF/versions/9/module-info*</exclude>
+                                    <exclude>META-INF/versions/11/module-info*</exclude>
+                                    <exclude>META-INF/*.SF</exclude>
+                                    <exclude>META-INF/*.DSA</exclude>
+                                    <exclude>META-INF/*.RSA</exclude>
+                                </excludes>
+                            </filter>
+                        </filters>
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer">
+                            </transformer>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
+                                <addHeader>false</addHeader>
+                            </transformer>
+                            <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            <transformer
+                                    implementation="io.yupiik.maven.shade.transformer.RelocationTransformer"/>
+                        </transformers>
+                        <relocations>
+                            <relocation>
+                                <pattern>javax.faces</pattern>
+                                <shadedPattern>jakarta.faces</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.el</pattern>
+                                <shadedPattern>jakarta.el</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.annotation</pattern>
+                                <shadedPattern>jakarta.annotation</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.servlet</pattern>
+                                <shadedPattern>jakarta.servlet</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.persistence</pattern>
+                                <shadedPattern>jakarta.persistence</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.enterprise</pattern>
+                                <shadedPattern>jakarta.enterprise</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.xml.bind</pattern>
+                                <shadedPattern>jakarta.xml.bind</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.validation</pattern>
+                                <shadedPattern>jakarta.validation</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.inject</pattern>
+                                <shadedPattern>jakarta.inject</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.activation</pattern>
+                                <shadedPattern>jakarta.activation</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.ws.rs</pattern>
+                                <shadedPattern>jakarta.ws.rs</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.jws</pattern>
+                                <shadedPattern>jakarta.jws</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>javax.xml.ws</pattern>
+                                <shadedPattern>jakarta.xml.ws</shadedPattern>
+                            </relocation>
+
+                            <relocation>
+                                <pattern>javax.xml.soap</pattern>
+                                <shadedPattern>jakarta.xml.soap</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>javax.mail</pattern>
+                                <shadedPattern>jakarta.mail</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>javax.json</pattern>
+                                <shadedPattern>jakarta.json</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>jakarta.annotation.processing.</pattern>
+                                <shadedPattern>javax.annotation.processing.</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>jakarta.annotation.concurrent.</pattern>
+                                <shadedPattern>javax.annotation.concurrent.</shadedPattern>
+                            </relocation>
+                            <relocations>
+                                <pattern>org.apache.commons.collections.</pattern>
+                                <shadedPattern>org.apache.commons.collections4.</shadedPattern>
+                            </relocations>
+                        </relocations>
                     </configuration>
+
                     <executions>
                         <execution>
                             <id>shade</id>
                             <phase>package</phase>
-                            <configuration>
-                                <filters>
-                                    <filter>
-                                        <artifact>*:*</artifact>
-                                        <excludes>
-                                            <exclude>module-info.java</exclude>
-                                            <exclude>META-INF/*.SF</exclude>
-                                            <exclude>META-INF/*.DSA</exclude>
-                                            <exclude>META-INF/*.RSA</exclude>
-                                        </excludes>
-                                    </filter>
-                                </filters>
-                                <transformers>
-                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer">
-                                    </transformer>
-                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
-                                        <addHeader>false</addHeader>
-                                    </transformer>
-                                    <transformer
-                                            implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                                    <transformer
-                                            implementation="io.yupiik.maven.shade.transformer.RelocationTransformer"/>
-                                </transformers>
-                            </configuration>
                         </execution>
                     </executions>
                     <dependencies>
@@ -240,6 +370,7 @@
                             </goals>
                             <configuration>
                                 <overwriteExistingFiles>true</overwriteExistingFiles>
+                                <jvmVersion>9</jvmVersion>
                                 <module>
                                     <moduleInfoFile>${module.file.location}</moduleInfoFile>
                                 </module>
@@ -253,7 +384,7 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>flatten-maven-plugin</artifactId>
                     <configuration>
-                        <flattenMode>oss</flattenMode>
+                        <flattenMode>ossrh</flattenMode>
                         <flattenDependencyMode>direct</flattenDependencyMode>
                         <detail>true</detail>
                         <updatePomFile>true</updatePomFile>
@@ -297,9 +428,6 @@
                         </execution>
                     </executions>
                 </plugin>
-
-
-
             </plugins>
         </pluginManagement>
 
@@ -382,4 +510,65 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>jdk11</id>
+            <activation>
+                <jdk>[11,20]</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/main/java</source>
+                                        <source>src/jre11/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jdk21</id>
+            <activation>
+                <jdk>21</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/main/java</source>
+                                        <source>src/jre21/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
