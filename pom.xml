@@ -184,6 +184,16 @@
                                         <artifactId>org.osgi.service.cdi</artifactId>
                                         <version>1.0.1</version>
                                     </dependency>
+                                    <dependency>
+                                        <groupId>org.osgi</groupId>
+                                        <artifactId>org.osgi.framework</artifactId>
+                                        <version>1.10.0</version>
+                                    </dependency>
+                                    <dependency>
+                                        <groupId>org.graalvm.nativeimage</groupId>
+                                        <artifactId>svm</artifactId>
+                                        <version>23.1.2</version>
+                                    </dependency>
                                 </additionalDependencies>
                             </configuration>
                         </execution>
@@ -306,8 +316,24 @@
                                 <shadedPattern>javax.annotation.processing.</shadedPattern>
                             </relocation>
                             <relocation>
+                                <pattern>jakarta.annotation.CheckForNull</pattern>
+                                <shadedPattern>javax.annotation.CheckForNull</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>jakarta.annotation.ParametersAreNonnullByDefault</pattern>
+                                <shadedPattern>javax.annotation.ParametersAreNonnullByDefault</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>jakarta.annotation.Nonnull</pattern>
+                                <shadedPattern>javax.annotation.Nonnull</shadedPattern>
+                            </relocation>
+                            <relocation>
                                 <pattern>jakarta.annotation.concurrent.</pattern>
                                 <shadedPattern>javax.annotation.concurrent.</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>jakarta.annotation.meta.</pattern>
+                                <shadedPattern>javax.annotation.meta.</shadedPattern>
                             </relocation>
                             <relocations>
                                 <pattern>org.apache.commons.collections.</pattern>
