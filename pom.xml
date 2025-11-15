@@ -97,6 +97,7 @@
                     </executions>
                     <configuration>
                         <failOnError>false</failOnError>
+                        <!--suppress MavenModelInspection -->
                         <skip>${maven.javadoc.skip}</skip>
                     </configuration>
                 </plugin>
@@ -114,7 +115,6 @@
                             </goals>
                             <configuration>
                                 <detectJavaApiLink>true</detectJavaApiLink>
-                                <force>true</force>
                                 <offlineLinks>
                                     <offlineLink>
                                         <!--suppress UnresolvedMavenProperty -->
