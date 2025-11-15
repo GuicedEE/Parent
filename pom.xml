@@ -526,7 +526,7 @@
                             </goals>
                             <configuration>
                                 <overwriteExistingFiles>true</overwriteExistingFiles>
-                                <jvmVersion>9</jvmVersion>
+                                <jvmVersion>base</jvmVersion>
                                 <module>
                                     <moduleInfoFile>${module.file.location}</moduleInfoFile>
                                 </module>
