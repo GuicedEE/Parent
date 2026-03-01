@@ -515,7 +515,6 @@
                     </dependencies>
                     <configuration>
                         <argLine>${surefireArgLine}</argLine>
-                        <testFailureIgnore>true</testFailureIgnore>
                     </configuration>
                 </plugin>
                 <plugin>
