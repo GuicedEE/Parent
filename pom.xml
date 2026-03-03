@@ -513,9 +513,6 @@
                             <version>${mapstruct.version}</version>
                         </dependency>
                     </dependencies>
-                    <configuration>
-                        <argLine>${surefireArgLine}</argLine>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.moditect</groupId>
@@ -679,9 +676,6 @@
                             <goals>
                                 <goal>prepare-agent</goal>
                             </goals>
-                            <configuration>
-                                <propertyName>surefireArgLine</propertyName>
-                            </configuration>
                         </execution>
                             <execution>
                                 <id>report</id>
