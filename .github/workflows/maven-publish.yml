@@ -11,6 +11,11 @@ env:
   GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
   MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
   GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   ParentBOM:
     uses: GuicedEE/Workflows/.github/workflows/bom.yml@master
