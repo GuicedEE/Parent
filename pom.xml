@@ -92,8 +92,9 @@
                                     <echo message="prepare sources for javadoc "/>
                                     <unzip src="target/${project.artifactId}-${project.version}-sources.jar"
                                            dest="target/source-output/"/>
+                                    <delete file="target/source-output/module-info.java" failonerror="false"/>
                                 </target>
-                                <failOnError>false</failOnError>
+                                <failOnError>true</failOnError>
                             </configuration>
                             <goals>
                                 <goal>run</goal>
@@ -101,7 +102,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <failOnError>false</failOnError>
+                        <failOnError>true</failOnError>
                         <!--suppress MavenModelInspection -->
                         <skip>${maven.javadoc.skip}</skip>
                     </configuration>
@@ -127,7 +128,7 @@
                                         <location>${project.basedir}</location>
                                     </offlineLink>
                                 </offlineLinks>
-                                <failOnError>false</failOnError>
+                                <failOnError>true</failOnError>
                                 <!--<javadocExecutable>/opt/jdk${jdk.release}/bin/javadoc</javadocExecutable>-->
                                 <additionalOptions>
                                     <additionalOption>-Xdoclint:none</additionalOption>
