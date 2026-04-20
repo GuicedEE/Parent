@@ -88,10 +88,13 @@
                             <id>prepare</id>
                             <phase>verify</phase>
                             <configuration>
-                                <target>
+                                <target xmlns:if="ant:if">
                                     <echo message="prepare sources for javadoc "/>
+                                    <available file="target/${project.artifactId}-${project.version}-sources.jar"
+                                               property="sources.jar.exists"/>
                                     <unzip src="target/${project.artifactId}-${project.version}-sources.jar"
-                                           dest="target/source-output/"/>
+                                           dest="target/source-output/"
+                                           if:set="sources.jar.exists"/>
                                     <delete file="target/source-output/module-info.java" failonerror="false"/>
                                 </target>
                                 <failOnError>true</failOnError>
