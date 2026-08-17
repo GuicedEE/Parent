@@ -5,17 +5,48 @@
     <parent>
         <groupId>com.guicedee</groupId>
         <artifactId>versioner</artifactId>
-        <version>2.2.0</version>
+        <version>2.2.2</version>
     </parent>
 
     <groupId>com.guicedee</groupId>
     <artifactId>parent</artifactId>
-    <version>2.2.0</version>
+    <version>2.2.2</version>
     <packaging>pom</packaging>
 
     <name>Guiced EE Parent</name>
     <description>The parent POM file for Guiced EE Builds</description>
     <url>https://guicedee.com</url>
+
+    <!--
+      Central validates the POM exactly as uploaded - it does NOT resolve the <parent>
+      chain to fill in inherited fields, even when com.guicedee:versioner is already live.
+      Every other module gets these inlined automatically by flatten-maven-plugin
+      (flattenMode=ossrh), but this POM is deliberately never flattened: flattening would
+      strip the <pluginManagement> that every consumer inherits from it. So licences, scm
+      and developers have to be declared here explicitly.
+    -->
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/GuicedEE/Parent</url>
+        <connection>scm:git:https://github.com/GuicedEE/Parent.git</connection>
+        <developerConnection>scm:git:https://github.com/GuicedEE/Parent.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>GedMarc</id>
+            <name>Marc Magon</name>
+            <email>marc.magon@gmail.com</email>
+            <url>https://github.com/GedMarc</url>
+        </developer>
+    </developers>
 
     <properties>
 
@@ -29,14 +60,18 @@
     </properties>
 
     <dependencies>
+        <!-- Versions are explicit: this POM is not flattened, and Central rejects an
+             uploaded POM whose dependencies carry no version element. -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
