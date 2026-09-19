@@ -1,7 +1,6 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.guicedee</groupId>
         <artifactId>versioner</artifactId>
@@ -572,7 +571,7 @@
                                     <moduleInfoFile>${module.file.location}</moduleInfoFile>
                                 </module>
                                 <skip>${ignore.moditect}</skip>
-                               <!-- <failOnWarning>false</failOnWarning>-->
+                                <!-- <failOnWarning>false</failOnWarning>-->
                             </configuration>
                         </execution>
                     </executions>
@@ -581,6 +580,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${flatten-maven-plugin.version}</version>
                     <configuration>
                         <flattenMode>ossrh</flattenMode>
                         <flattenDependencyMode>direct</flattenDependencyMode>
@@ -626,6 +626,7 @@
                         </execution>
                     </executions>
                 </plugin>
+
             </plugins>
         </pluginManagement>
 
@@ -711,12 +712,12 @@
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
                         <executions>
-                        <execution>
-                            <id>prepare-agent</id>
-                            <goals>
-                                <goal>prepare-agent</goal>
-                            </goals>
-                        </execution>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
                             <execution>
                                 <id>report</id>
                                 <goals>
