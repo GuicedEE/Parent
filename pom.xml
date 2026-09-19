@@ -531,7 +531,7 @@
                         <dependency>
                             <groupId>io.yupiik.maven</groupId>
                             <artifactId>maven-shade-transformers</artifactId>
-                            <version>0.0.4</version>
+                            <version>${maven.shade.transformers.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -611,7 +611,7 @@
                 <plugin>
                     <groupId>com.coderplus.maven.plugins</groupId>
                     <artifactId>copy-rename-maven-plugin</artifactId>
-                    <version>1.0</version>
+                    <version>${copy.rename.maven.plugin.version}</version>
                     <executions>
                         <execution>
                             <id>copy-file</id>
