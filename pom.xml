@@ -86,6 +86,13 @@
             </dependency>
             <dependency>
                 <groupId>com.guicedee</groupId>
+                <artifactId>vertx-bom</artifactId>
+                <version>${guicedee.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.guicedee</groupId>
                 <artifactId>tests-bom</artifactId>
                 <version>${guicedee.version}</version>
                 <type>pom</type>
