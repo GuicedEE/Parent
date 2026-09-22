@@ -51,6 +51,7 @@
 
         <project.scm.nameUrl>/GuicedEE/Parent</project.scm.nameUrl>
 
+        <guicedee.version>2.2.3</guicedee.version>
         <ignore.moditect>false</ignore.moditect>
         <flatten.pom>false</flatten.pom>
         <module.file.location>src/moditect/module-info.java</module.file.location>
